@@ -1,0 +1,9 @@
+build/
+dist/
+docs/
+output/
+*~
+TEST*
+lib/analyzer.jar
+lib/java112Labs.jar
+.DS_Store
