@@ -19,8 +19,8 @@ import java.text.NumberFormat;
  */
 public class SummaryReport implements Analyzer {
     
-    private int tokenCount = 0;
-    private Properties properties = null;
+    public int tokenCount = 0;
+    public Properties properties = null;
     
     /**
      *  No parameter constructor.

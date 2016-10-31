@@ -5,14 +5,18 @@ import java.util.*;
 import java.math.*;
 
 /**  
- *  
+ *  Token Size Analyzer determines the size distribution of tokens within the
+ *  input file. It then produces a report containing two parts. Part one lists
+ *  each token and the number of times it occurred within the input file. Part
+ *  two displays a histogram showing a visual representation of the token's 
+ *  distribution compared to other tokens.
  *  <p>
  *  Advanced Java (Java 152-112)<br>
  *  Unit 3, Project 3<br>
  *  Date: 10-17-2016
  *  
  *  @author Aaron Groom
- *  @since Version 1.0
+ *  @since Version 3.0
  */
 
 public class TokenSizeAnalyzer implements Analyzer {
@@ -40,7 +44,11 @@ public class TokenSizeAnalyzer implements Analyzer {
     }
     
     /**
-     *  
+     *  Processes a token by first ensuring the token is not null or empty.
+     *  Then it increments the tokenOccurence count (the token's location
+     *  within the input file) and checks to see if the token is a keyword.
+     *  If it is a keyword, then it updates the ArrayList of occurances by
+     *  adding a new element containing the tokenOccurence count.
      *  
      *  @param token token value to process
      */
@@ -52,6 +60,7 @@ public class TokenSizeAnalyzer implements Analyzer {
             } else {
                 tokenSizes.put(tokenSize, 1);
             }
+            
             if (tokenSize > maximumSize) {
                 maximumSize = tokenSize;
             }

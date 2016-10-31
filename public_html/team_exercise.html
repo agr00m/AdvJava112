@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Expression Presentation</title>
+</head>
+
+<body bgcolor="#ccddff ">
+    
+    <h1>JSP Expression</h1>
+    Olena Collins<br>
+    ayousfan<br>
+    Aaron Groom<br>
+    
+    <p><strong>1. What is a JSP Expression?</strong></p>
+    
+    </p>A JSP Expression is used to evaluate a Java expression, convert into a String, and display the result each time the page is requested.</p>
+    
+    <p><strong>2. Syntax</strong></p>
+    
+    <p><%= Java Expression %><br><br>
+    
+    This is different from a Scriptlet in that it contains only a single expression, and converts the expression into a string, and includes it directly to the output stream. <br><br>
+    
+    Scriptlet:
+    <pre>
+    <% 
+        String hellowWorld = "Hellow World";
+        System.out.println(hellowWorld);
+    %>
+    </pre>
+    Expression: 
+    <pre>
+    <%= hellowWorld %>
+    </pre>
+    </p>
+
+    <p><strong>3. Practical example, in the form of working code</strong></p>
+    
+    <p><strong>4. How does the jsp translator handle Expressions?</strong></p>
+    
+    <p>From Lab 3-1<br><br>
+
+    JSP Page: <br>
+    <pre>
+    <%= new java.util.Date() %>
+    </pre>
+    
+    Java Servlet:<br>
+    <pre>
+    try {
+      response.setContentType("text/html");
+      pageContext = _jspxFactory.getPageContext(this, request, response, null, true, 8192, true
+    );
+      _jspx_page_context = pageContext;
+      application = pageContext.getServletContext();
+      config = pageContext.getServletConfig();
+      session = pageContext.getSession();
+      out = pageContext.getOut();
+      _jspx_out = out;
+    
+      out.write("&lt!doctype html&gt\n");
+      out.write("\n");
+      out.write("&lthtml&gt\n");
+      out.write("&lthead&gt\n");
+      out.write("  &lttitle&gtMy First JSP Page&lt/title&gt\n");
+      out.write("&lt/head&gt\n");
+      out.write("&ltp&gt");
+      <b>out.print( new java.util.Date());</b>
+      out.write("&lt/p&gt\n");
+      out.write("&lt/body&gt\n");
+      out.write("&lt/html&gt\n");
+    } catch (java.lang.Throwable t) {
+      ...
+    } finally {
+      ...
+    }
+    </pre></p>
+    
+    <p><strong>5. Best practices.</strong></p>
+
+    <p><strong>6. Drawbacks.</strong></p>
+
+</body>
+</html>

@@ -85,7 +85,11 @@ Released   : 20110708
 							<li>
 								<h2>Unit 3</h2>
 								<ul>
-									<li><a href="#">Coming Soon...</a></li>
+									<li><a href="myFirstJSP.jsp">Lab 3-1: My First JSP Page</a></li>
+									<li><a href="team_exercise.html">Team Exercise: Expression</a></li>
+									<li><a href="Lab32">Lab 3-2: HTTP Request</a></li>
+									<li><a href="lab33Servlet">Lab 3-3: Using the EL</a></li>
+									<li><a href="mvc-demo">Lab 3-4: MVC Demo</a></li>
 								</ul>
 							</li>
 							<li>

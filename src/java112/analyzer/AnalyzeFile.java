@@ -73,6 +73,7 @@ public class AnalyzeFile {
         analyzers.add(new TokenCountAnalyzer(properties));
         analyzers.add(new LexicalDensityAnalyzer(properties));
         analyzers.add(new TokenSizeAnalyzer(properties));
+        analyzers.add(new KeywordAnalyzer(properties));
     }
     
     

@@ -43,7 +43,7 @@ public class LexicalDensityAnalyzer implements Analyzer {
         this();
         this.properties = properties;
         
-        String inFile = properties.getProperty("input.file.function.words");
+        String inFile = properties.getProperty("file.path.function.words");
         
         try (BufferedReader inputReader = new BufferedReader(new FileReader(inFile))) {            
             while (inputReader.ready()) {
