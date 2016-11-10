@@ -38,6 +38,10 @@
         <servlet-name>Lab32</servlet-name>
         <jsp-file>/Lab32JSP.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>Project3</servlet-name>
+        <jsp-file>/project3.jsp</jsp-file>
+    </servlet>
 
 <!-- ********************************************************************* -->
 <!-- Servlet Mappings **************************************************** -->
@@ -46,6 +50,10 @@
     <servlet-mapping>
         <servlet-name>Lab32</servlet-name>
         <url-pattern>/Lab32</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Project3</servlet-name>
+        <url-pattern>/project3</url-pattern>
     </servlet-mapping>
 
 <!-- ********************************************************************* -->

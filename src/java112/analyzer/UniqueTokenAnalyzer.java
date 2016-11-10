@@ -3,9 +3,11 @@ import java.io.*;
 import java.util.*;
 
 /**  
- *  Creates a report containing all the unique tokens processed. The name and 
- *  location of the report is determined by the analyzer properties file. 
- *  <p>
+ *  Determines the unique tokens present within an input file. It then produces
+ *  a report contaning a list of all unique tokens, listed in alphabetical 
+ *  order. The name and location of the report is determined by the analyzer 
+ *  properties file. <br><br> 
+ *  
  *  Advanced Java (Java 152-112)<br>
  *  Unit 1, Project 1<br>
  *  Date: 09-23-2016
@@ -28,7 +30,7 @@ public class UniqueTokenAnalyzer implements Analyzer {
     }
     
     /**
-     *  Override default constructor.
+     *  Overload constructor with the project properties file.
      *
      *  @param properties project 2 properties file
      */

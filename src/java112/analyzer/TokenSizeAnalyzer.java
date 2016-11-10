@@ -5,12 +5,12 @@ import java.util.*;
 import java.math.*;
 
 /**  
- *  Token Size Analyzer determines the size distribution of tokens within the
- *  input file. It then produces a report containing two parts. Part one lists
- *  each token and the number of times it occurred within the input file. Part
- *  two displays a histogram showing a visual representation of the token's 
- *  distribution compared to other tokens.
- *  <p>
+ *  Determines the size distribution of tokens within an input file. It then 
+ *  produces a report containing two parts. Part one lists each token and the 
+ *  number of times it occurred within the input file. Part two displays a 
+ *  histogram showing a visual representation of the token's distribution 
+ *  compared to other token sizes.<br><br>
+ *  
  *  Advanced Java (Java 152-112)<br>
  *  Unit 3, Project 3<br>
  *  Date: 10-17-2016
@@ -34,7 +34,7 @@ public class TokenSizeAnalyzer implements Analyzer {
     }
     
     /**
-     *  Override default constructor.
+     *  Overload constructor with the project properties file.
      *
      *  @param properties project 2 properties file
      */
@@ -53,45 +53,38 @@ public class TokenSizeAnalyzer implements Analyzer {
      *  @param token token value to process
      */
     public void processToken(String token) {
-        if (token != null && !token.isEmpty()) {
-            int tokenSize = token.length();
-            if (tokenSizes.containsKey(tokenSize)) {
-                tokenSizes.put(tokenSize, tokenSizes.get(tokenSize) + 1);
-            } else {
-                tokenSizes.put(tokenSize, 1);
-            }
-            
-            if (tokenSize > maximumSize) {
-                maximumSize = tokenSize;
-            }
+        if (token != null && !token.isEmpty()) {    // Check if null or empty
+            int tokenSize = token.length();         // Get token size
+            tokenSizes.putIfAbsent(tokenSize, 0);   // Add if not present
+            tokenSizes.put(tokenSize, tokenSizes.get(tokenSize)+1); // Increment
         }
     }
     
     /**
-     *  Creates a report containing each unique token processed. Tokens
-     *  are listed in alphabetical order and printed on their own line. 
+     *  Creates a report containg the size distribution of the tokens in the
+     *  input file. The report includes a table with the token sizes and 
+     *  frequency each occurred and a historgram showing the proportinal 
+     *  relationship of the frequencies.
+     *  
+     *  @param inputFilePath input file path
      */
     public void writeOutputFile(String inputFilePath) {       
         
         String outputFilePath = properties.getProperty("output.dir") +
                                 properties.getProperty("output.file.token.size");
-        int maxCount = calcHighestCount();
+        int histHeight = 40;    // Top/Bottom histogram character height
+        maximumSize = Collections.max(tokenSizes.values()); // Find maximumSize
         
         try (PrintWriter outputWriter = 
             new PrintWriter(new FileWriter(outputFilePath))
         ) {
-            tokenSizes.forEach((k,v)->outputWriter.println(k + "\t" + v));
+            // Print tables and histograms
+            printTokenTable(outputWriter);
+            printHistogramLtoR(outputWriter);
+            printHistogramRtoL(outputWriter);            
+            printHistogramBtoT(outputWriter, histHeight);
+            printHistogramTtoB(outputWriter, histHeight);
             
-            outputWriter.println();
-            outputWriter.println();
-            
-            for (Map.Entry<Integer,Integer> entry : tokenSizes.entrySet()) {
-                for (int i = 0; i < calcHistCount(entry.getValue(), maxCount); i++) {
-                    outputWriter.print("*");        
-                }
-                outputWriter.println();
-            }
-
             System.out.println(properties.getProperty("output.file.token.size") + 
                                " written Successfully");
             
@@ -105,32 +98,153 @@ public class TokenSizeAnalyzer implements Analyzer {
     }
     
     /**
-     *  Calculates the highest token size count in the map. 
-     *
-     *  @return highest token size count
+     *  Prints a table containing the size of tokens processed and the frequency
+     *  each size occurred in the input file.
+     *  
+     *  @param outputWriter output stream to print to
      */
-    private int calcHighestCount() {
-        int highestCount = 0;
-        for (Map.Entry<Integer,Integer> entry : tokenSizes.entrySet()) {
-            if (entry.getValue() > highestCount) {
-                highestCount = entry.getValue();
-            }
-        }
-        return highestCount;
+    void printTokenTable(PrintWriter outputWriter) {
+        tokenSizes.forEach((k,v)->outputWriter.println(k + "\t" + v));
+        outputWriter.println("Maximum Size = " + maximumSize);
+        outputWriter.println();
     }
     
     /**
-     *  Calculates the number of '*' characters to print for the histogram.
-     *
-     *  @param tokenSize length of token
-     *  @param higestCount highest token count in map 
+     *  Prints a histogram of the size distributions. The histogram is displayed
+     *  from left to right.
+     *  
+     *  @param outputWriter output stream to print to
      */
-    private int calcHistCount(int tokenSize, int higestCount) {
-        int histCount = (int)Math.round(tokenSize * 80.0 / higestCount);
+    void printHistogramLtoR(PrintWriter outputWriter) {
+        printDividerLine(outputWriter, "-", 80);
+        outputWriter.println("    Token Size Histogram (Left -> Right)");
+        printDividerLine(outputWriter, "-", 80);
+        for (Map.Entry<Integer,Integer> entry : tokenSizes.entrySet()) {
+            outputWriter.print(entry.getKey() + "\t");
+            for (int i = 0; i < map(entry.getValue(), 76); i++) {
+                outputWriter.print("*");        
+            }
+            outputWriter.println();
+        }
+        outputWriter.println();
+    }
+    
+    /**
+     *  Prints a histogram of the size distributions. The histogram is displayed
+     *  from right to left.
+     *  
+     *  @param outputWriter output stream to print to
+     */
+    void printHistogramRtoL(PrintWriter outputWriter) {
+        
+        printDividerLine(outputWriter, "-", 80);
+        outputWriter.println("    Token Size Histogram (Right -> Left)");
+        printDividerLine(outputWriter, "-", 80);
+        
+        for (Map.Entry<Integer,Integer> entry : tokenSizes.entrySet()) {
+            outputWriter.print(entry.getKey() + "\t");
+            for (int i = 0; i < 76; i++) {
+                if (map(entry.getValue(), 76) < (76-i)) {
+                    outputWriter.print(" ");
+                } else {
+                    outputWriter.print("*");
+                }
+            }
+            outputWriter.println();
+        }
+        outputWriter.println();
+    }
+    
+    /**
+     *  Prints a histogram of the size distributions. The histogram is displayed
+     *  from bottom to top.
+     *  
+     *  @param outputWriter output stream to print to
+     */
+    void printHistogramBtoT(PrintWriter outputWriter, int histHeight) {
+        
+        printDividerLine(outputWriter, "-", 80);
+        outputWriter.println("    Token Size Histogram (Bottom -> Top)");
+        printDividerLine(outputWriter, "-", 80);
+        
+        for (int height = histHeight; height >= 1; height--) {
+            for (Map.Entry<Integer,Integer> entry : tokenSizes.entrySet()) {
+                if (map(entry.getValue(), histHeight) >= height) {
+                    outputWriter.print("*\t");
+                } else {
+                    outputWriter.print(" \t");
+                }
+                //outputWriter.print("\t");
+            }
+            outputWriter.println();
+        }
+        for (Map.Entry<Integer,Integer> entry : tokenSizes.entrySet()) {
+            outputWriter.print(entry.getKey() + "\t");
+        }
+        outputWriter.print("\n\n");
+    }
+    
+    /**
+     *  Prints a histogram of the size distributions. The histogram is displayed
+     *  from top to bottom.
+     *  
+     *  @param outputWriter output stream to print to
+     *  @param maxRange maximum value in the new range
+     */
+    void printHistogramTtoB(PrintWriter outputWriter, int histHeight) {
+        
+        printDividerLine(outputWriter, "-", 80);
+        outputWriter.println("    Token Size Histogram (Top -> Bottom)");
+        printDividerLine(outputWriter, "-", 80);
+            
+        for (Map.Entry<Integer,Integer> entry : tokenSizes.entrySet()) {
+                outputWriter.print(entry.getKey() + "\t");
+        }
+        outputWriter.println();
+        
+        for (int height = 1; height <= histHeight; height++) {
+            for (Map.Entry<Integer,Integer> entry : tokenSizes.entrySet()) {
+                if (map(entry.getValue(), histHeight) >= height) {
+                    outputWriter.print("*");
+                } else {
+                    outputWriter.print(" ");
+                }
+                outputWriter.print("\t");
+            }
+            outputWriter.println();
+        }
+    }
+    
+    /**
+     *  Maps a value from one range to another range. The from range is always
+     *  0 - maximumSize. The to range is 0 - maxRange.
+     *
+     *  @param value length of token
+     *  @param maxRange maximum value in the new range
+     */
+    private int map(int value, int maxRange) {
+        int histCount = (int)Math.round(value * maxRange / maximumSize);
         if (histCount < 1) {
             histCount = 1;
         }
         return histCount;
+    }
+    
+    /**
+     *  Prints a divider line to the output stream.
+     *
+     *  @param outputWriter output spream to print to
+     *  @param s characters to print
+     *  @param chars number of times to print the characters (max 80)
+     */
+    public void printDividerLine(PrintWriter outputWriter, String s, int chars) {
+        if (chars * s.length() > 80) {
+            chars = 80 / s.length();
+        }
+        for (int i = 0; i < chars; i++) {
+            outputWriter.print(s);
+        }
+        outputWriter.println();
     }
     
     /**

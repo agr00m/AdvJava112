@@ -30,7 +30,7 @@ public class SummaryReport implements Analyzer {
     }
     
     /**
-     *  Override default constructor.
+     *  Overload constructor with the project properties file.
      *
      *  @param properties project properties file
      */

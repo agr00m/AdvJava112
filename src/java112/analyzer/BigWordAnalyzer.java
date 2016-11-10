@@ -4,10 +4,12 @@ import java.io.*;
 import java.util.*;
 
 /**  
- *  Creates a report containing all the "big words" processed. The length
- *  of a big word is determined by the analyer properties file. The name and 
- *  location of the report is determined by the analyzer properties file.
- *  <p>
+ *  Determines the unique tokens greater than or equal to a specified length
+ *  within an input file. It then creates a report listing all the unique 
+ *  tokens processed, in alphabetical order, that meet this criteria. The 
+ *  length of "big words" and the name and location of the report is determined 
+ *  by the analyzer properties file. <br><br>
+ *  
  *  Advanced Java (Java 152-112)<br>
  *  Unit 2, Project 2<br>
  *  Date: 10-06-2016
@@ -31,7 +33,7 @@ public class BigWordAnalyzer implements Analyzer {
     }
     
     /**
-     *  Override default constructor with the project properties file.
+     *  Overload constructor with the project properties file.
      *
      *  @param properties project 2 properties file
      */

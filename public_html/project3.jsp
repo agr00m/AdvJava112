@@ -40,20 +40,29 @@ Released   : 20110708
 		<div id="page">
 			<div id="page-bgtop">
 				<div id="page-bgbtm">
-				
-				    <!-- begin #content -->
 					<div id="content">
 						<div class="post">
-							<h2 class="title"><a href="#">Unit 2 - Lab 1</a></h2>
-							<p class="meta">Posted: October 3, 2016
+							<h2 class="title"><a href="#">Unit 3 - Project 3</a></h2>
+							<p class="meta">Posted: November 1, 2016
 							<div class="entry">
-								<p><img src="images/emma1.jpg" width="143" height="143" alt="" class="alignleft border" />My daughter Emma at her first petting zoo.</p>
+							    <ul>
+                                    <li>Remote Computer: ${data.remoteComputer}</li>
+                                    <li>Remote Computer Address: ${data.remoteComputerAddress}</li>
+                                    <li>HTTP Request Method: ${data.requestMethod}</li>
+                                    <li>Request URI: ${data.requestURI}</li>
+                                    <li>Request URL: ${data.requestURL}</li>
+                                    <li>Request Protocol: ${data.requestProtocol}</li>
+                                    <li>Server Name: ${data.serverName}</li>
+                                    <li>Server Port: ${data.serverPort}</li>
+                                    <li>Server Locale: ${data.serverLocale}</li>
+                                    <li>Query String: ${data.queryString}</li>
+                                    <li>queryParameter Value: ${data.queryParameter}</li>
+                                    <li>User-Agent: ${data.userAgent}</li>
+					            </ul>
 							</div>
 						</div>
-                  
 					</div>
 					<!-- end #content -->
-					
 					<div id="sidebar">
 						<div id="search">
 							<h2>Search</h2>

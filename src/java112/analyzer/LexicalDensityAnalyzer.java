@@ -6,10 +6,10 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 /**  
- *  Creates a report that analyzes the lexical density of the given input file.
- *  The report contains the total word and the lexical word count and the
- *  the lexical density.
- *  <p>
+ *  Determines the lexical density of an input file. It then creates a report 
+ *  that conntains the total word, lexical word count and the lexical density
+ *  of the input file. <br><br>
+ *  
  *  Advanced Java (Java 152-112)<br>
  *  Unit 2, Project 2<br>
  *  Date: 10-06-2016
@@ -34,7 +34,7 @@ public class LexicalDensityAnalyzer implements Analyzer {
     }
     
     /**
-     *  Override default constructor with the analyzer properties file.
+     *  Overload constructor with the project properties file.
      *
      *  @param properties project 2 properties file
      */

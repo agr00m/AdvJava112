@@ -40,20 +40,41 @@ Released   : 20110708
 		<div id="page">
 			<div id="page-bgtop">
 				<div id="page-bgbtm">
-				
-				    <!-- begin #content -->
 					<div id="content">
 						<div class="post">
-							<h2 class="title"><a href="#">Unit 2 - Lab 1</a></h2>
-							<p class="meta">Posted: October 3, 2016
+							<h2 class="title"><a href="#">Project 3 Description</a></h2>
+							<p class="meta">Posted: November 1, 2016
 							<div class="entry">
-								<p><img src="images/emma1.jpg" width="143" height="143" alt="" class="alignleft border" />My daughter Emma at her first petting zoo.</p>
+							    <table>
+                                    <tr>
+                                        <td style="width:100px">Name</td>
+                                        <td style="width:400px">${property["author.name"]}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>E-mail</td>
+                                        <td>${property["author.email"]}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Title</td>
+                                        <td>${property["course.title"]}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Schedule</td>
+                                        <td>${property["course.schedule"]}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Instructor</td>
+                                        <td>${property["course.instructor"]}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Project 3 <br>Description</td>
+                                        <td>${property["project.description"]}</td>
+                                    </tr>
+					            </table>
 							</div>
 						</div>
-                  
 					</div>
 					<!-- end #content -->
-					
 					<div id="sidebar">
 						<div id="search">
 							<h2>Search</h2>

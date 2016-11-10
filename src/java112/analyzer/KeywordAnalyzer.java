@@ -5,11 +5,10 @@ import java.util.*;
 import java.math.*;
 
 /**  
- *  Keyword Analyzer determines where keywords are within the input file.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     tokens by checking to see if they are a keyword.
- *  If the token is a keyword, it saves the location of each occurance within
- *  the input file and produces a report displaying each keyword and the 
- *  location(s) it occurred.
- *  <p>
+ *  Determines where keywords are within an input file. It then produces a 
+ *  report displaying each keyword and where the location(s) it occurred 
+ *  in the input file.  <br><br>
+ * 
  *  Advanced Java (Java 152-112)<br>
  *  Unit 3, Project 3<br>
  *  Date: 10-31-2016
@@ -34,8 +33,8 @@ public class KeywordAnalyzer implements Analyzer {
     }
     
     /**
-     *  Override constructor. If provided with the analyzer propert file, 
-     *  it populates the HashMap with the list of keywords.
+     *  Overload constructor with the project properties file. 
+     *  Populates the HashMap with the list of keywords.
      *
      *  @param properties project properties file
      */
@@ -81,7 +80,7 @@ public class KeywordAnalyzer implements Analyzer {
      *  Creates the report containing each keyword and the location(s)
      *  of the keywords in the input file.
      *  
-     *  @param inputFilePath 
+     *  @param inputFilePath path to input file
      */
     public void writeOutputFile(String inputFilePath) {       
         

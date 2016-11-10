@@ -361,3 +361,16 @@ img.aligncenter {
 #footer a {
 	color: #FFFFFF;
 }
+
+/* Table */
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    border: 1px solid white;
+}
+
+td {
+    word-wrap:break-word;
+    border: 1px solid white;
+    padding: 5px;
+}

@@ -3,10 +3,11 @@ import java.io.*;
 import java.util.*;
 
 /**  
- *  Creates a report containing all the unique tokens processed and the number
- *  of times the token occured. The name and location of the report is 
- *  determined by the analyzer properties file. 
- *  <p>
+ *  Determines the number and frequencey of unique tokens within an input file. 
+ *  It then creates a report containing listing the unique tokens processed, 
+ *  in aphabetical order, and the number of times the token occured. The name 
+ *  and location of the report is determined by the analyzer properties file. 
+ *  <br><br>
  *  Advanced Java (Java 152-112)<br>
  *  Unit 2, Project 2<br>
  *  Date: 10-06-2016
@@ -29,7 +30,7 @@ public class TokenCountAnalyzer implements Analyzer {
     }
     
     /**
-     *  Override default constructor with the analyzer properties file.
+     *  Overload constructor with the project properties file.
      *
      *  @param properties project 2 properties file
      */
