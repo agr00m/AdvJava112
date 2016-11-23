@@ -3,7 +3,7 @@ package java112.employee;
 import java.io.*;
 
 /**  
- *  
+ *  The Employee class contains all the information about an employee.
  *  <p>
  *  Advanced Java (Java 152-112) <br>
  *  Unit 4, Project 4 <br>
@@ -22,8 +22,6 @@ public class Employee {
     private String department = "";
     private String roomNumber = "";
     private String phoneNumber = "";
-
-    
     
     /**
 	 * Constructor.

@@ -4,13 +4,13 @@ import java.io.*;
 import java.sql.*;
   
 /**
- *  
+ *  Connects to the employee database and inserts a new employee. New employee
+ *  information is entered via the command line during program execution.
  *  <p>
  *  Advanced Java (Java 152-112) <br>
  *  Unit 4, Lab 2 <br>
  *  Date: 11-14-2016
  *
- *  @author Eric Knapp
  *  @author Aaron Groom
  */
 public class JDBCInsertEmployees {
@@ -32,13 +32,13 @@ public class JDBCInsertEmployees {
         ResultSet resultSet = null;
         
         System.out.println("\nNEW EMPLOYEE ENTRY");
-        String employeeID = getValue("Employee ID: ");
-        String firstName = getValue("First Name: ");
-        String lastName = getValue("Last Name: ");
-        String SSN = getValue("Social Security Number: ");
-        String department = getValue("Department: ");
-        String roomNumber = getValue("Room Number: ");
-        String phoneNumber = getValue("Phone Number (xxx-xxxx): ");
+        String employeeID = getValue("Employee ID:");
+        String firstName = getValue("First Name:");
+        String lastName = getValue("Last Name:");
+        String SSN = getValue("Social Security Number:");
+        String department = getValue("Department:");
+        String roomNumber = getValue("Room Number:");
+        String phoneNumber = getValue("Phone Number (xxx-xxxx):");
         
   
         try {

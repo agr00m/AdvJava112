@@ -17,31 +17,26 @@ Released   : 20110708
 <body>
 <div id="wrapper">
 	<div id="wrapper-bgbtm">
-		
         <c:import url="jsp/header-div.jsp" />
-		<!-- end #header -->
-		
 		<c:import url="jsp/menu-div.jsp" />
-		<!-- end #menu -->
 		
 		<div id="page">
 		
             <!-- begin #content -->
             <div id="content">
-                <c:import url="jsp/posts.jsp" />
+                <c:import url="jsp/post1.jsp" />
             </div>
             <!-- end #content -->
             
-            <c:import url="jsp/sidebar-div.jsp" />
-            <!-- end #sidebar -->
+            <!-- #sidebar -->
+            <c:import url="jsp/sidebar-div.jsp" />  
             
             <div style="clear: both;">&nbsp;</div>
-		</div>
+        </div>
 		<!-- end #page -->
 		
-		<c:import url="jsp/footer-div.jsp" />
-		<!-- end #footer -->
-		
+		<!-- #footer -->
+		<c:import url="jsp/footer-div.jsp" />    		
 	</div>
 </div>
 </body>

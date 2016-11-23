@@ -28,7 +28,10 @@ Released   : 20110708
 		
             <!-- begin #content -->
             <div id="content">
-                <c:import url="jsp/posts.jsp" />
+                
+                <h2>Employee Search</h2>
+            
+            
             </div>
             <!-- end #content -->
             

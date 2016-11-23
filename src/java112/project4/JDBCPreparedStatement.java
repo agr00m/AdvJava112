@@ -4,16 +4,17 @@ import java.io.*;
 import java.sql.*;
   
 /**
- *  
+ *  Connects to the employee database and inserts a new employee using the
+ *  PreparedStatement object. New employee information is entered via the 
+ *  command line during program execution.
  *  <p>
  *  Advanced Java (Java 152-112) <br>
  *  Unit 4, Lab 3 <br>
  *  Date: 11-21-2016
  *
- *  @author Eric Knapp
  *  @author Aaron Groom
  */
-public class JDBC PreparedStatement {
+public class JDBCPreparedStatement {
 
     /**
      *  The main method for teh JDBCInsertEmployees class.
@@ -21,63 +22,77 @@ public class JDBC PreparedStatement {
      *  @param  args  The command line arguments
      */
     public static void main(String[] args) {
-        JDBCInsertEmployees employees = new JDBCInsertEmployees();
+        JDBCPreparedStatement employees = new JDBCPreparedStatement();
         employees.runSample();
     }
 
     public void runSample() {
   
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
+        Connection con = null;                  // JDBC Connection object
+        Statement statement = null;             // For queryString
+        ResultSet resultSet = null;             // For query results
+        PreparedStatement insertEmp = null;   // For insertStatement
         
+        // Get the new employee information
         System.out.println("\nNEW EMPLOYEE ENTRY");
-        String employeeID = getValue("Employee ID: ");
-        String firstName = getValue("First Name: ");
-        String lastName = getValue("Last Name: ");
-        String SSN = getValue("Social Security Number: ");
-        String department = getValue("Department: ");
-        String roomNumber = getValue("Room Number: ");
-        String phoneNumber = getValue("Phone Number (xxx-xxxx): ");
+        int employeeID = Integer.parseInt(getValue("Employee ID:"));
+        String firstName = getValue("First Name:");
+        String lastName = getValue("Last Name:");
+        String SSN = getValue("Social Security Number:");
+        String department = getValue("Department:");
+        String roomNumber = getValue("Room Number:");
+        String phoneNumber = getValue("Phone Number (xxx-xxxx):");
         
-  
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-  
-            connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost/student", "student", "student");
-  
-            statement = connection.createStatement();
-            
-            String insertString = "INSERT into employees values ("
-                    + employeeID + ", '" + firstName + "', '" + lastName 
-                    + "', '" + SSN + "', '" + department + "', '" + roomNumber 
-                    + "', '" + phoneNumber + "')";
-            
-            String queryString = "SELECT emp_id, first_name, last_name"
+        // Create query string statment to display newly entered employee.
+        String queryString = "SELECT emp_id, first_name, last_name"
                     + " FROM employees " + "WHERE emp_id = '"
                     + employeeID + "'";
-            
-            System.out.println();
-            System.out.println("insertString: " + insertString);
-            
-            int rowsAffected = statement.executeUpdate(insertString);
-            System.out.println();
-            System.out.println(rowsAffected + " employee created");
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection
+                    ("jdbc:mysql://localhost/student?useSSL=false", "student", "student");
+            statement = con.createStatement();
             
             resultSet = statement.executeQuery(queryString);
+            if (resultSet.isBeforeFirst()) {
+                String result = getValue("\nEmployee ID already exists. Update? (y/n):");
+                if (result.equals("y") || result.equals("Y")) {
+                    insertEmp = con.prepareStatement("UPDATE employees " +
+                            "SET first_name = ?, last_name = ?, ssn = ?, " +
+                            "dept = ?, room = ?, phone = ? WHERE emp_id = ?");
+                    insertEmp.setString(1, firstName);
+                    insertEmp.setString(2, lastName);
+                    insertEmp.setString(3, SSN);
+                    insertEmp.setString(4, department);
+                    insertEmp.setString(5, roomNumber);
+                    insertEmp.setString(6, phoneNumber);
+                    insertEmp.setInt(7, employeeID);
+                    insertEmp.executeUpdate();
+                }
+            } else {
+                insertEmp = con.prepareStatement
+                        ("INSERT INTO employees VALUES (?,?,?,?,?,?,?)");
+                insertEmp.setInt(1, employeeID);
+                insertEmp.setString(2, firstName);
+                insertEmp.setString(3, lastName);
+                insertEmp.setString(4, SSN);
+                insertEmp.setString(5, department);
+                insertEmp.setString(6, roomNumber);
+                insertEmp.setString(7, phoneNumber);
+                insertEmp.executeUpdate();
+            }
             
+            resultSet = statement.executeQuery(queryString);
             while (resultSet.next()) {
                 System.out.println(" Row: " + employeeID + " "
                             + firstName + " " + lastName);
             }
-  
         } catch (ClassNotFoundException classNotFound) {
-            System.err.println("Cannot find database driver ");
+            System.err.println("Cannot find database driver");
             classNotFound.printStackTrace();
         } catch (SQLException sqlException) {
-            System.err.println("Error in connection.ecting to database "
-                    + sqlException);
+            System.err.println("Error in connection.ecting to database " + sqlException);
             sqlException.printStackTrace();
         } catch (Exception exception) {
             System.err.println("General Error");
@@ -87,8 +102,8 @@ public class JDBC PreparedStatement {
                 if (statement != null) {
                     statement.close();
                 }
-                if (connection != null) {
-                    connection.close();
+                if (con != null) {
+                    con.close();
                 }
             } catch (SQLException sqlException) {
                 System.err.println("Error in connection.ecting to database "
@@ -134,3 +149,7 @@ public class JDBC PreparedStatement {
         return inputLine;
     }
 }
+
+/*
+
+*/
