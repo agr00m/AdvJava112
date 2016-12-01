@@ -16,9 +16,11 @@ import javax.servlet.annotation.*;
  *
  *  @author Aaron Groom
  *  @since  4.0
+ *
+ *  Notes: Completed and tested.
  */
 @WebServlet(
-    name = "Project3PropertiesServlet", 
+    name = "employeeSearch", 
     urlPatterns = {"/employee-search"}
 )
 public class EmployeeSearchForward extends HttpServlet {
@@ -36,7 +38,7 @@ public class EmployeeSearchForward extends HttpServlet {
                 
         String url = "/employee_search.jsp";
          
-        RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher(url);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }
 }

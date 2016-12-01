@@ -5,9 +5,10 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import java112.employee.*;
 
 /**  
- *  Forwards requests to the employee_add.jsp page.
+ *  
  *  
  *  <p>
  *  Advanced Java (Java 152-112) <br>
@@ -17,13 +18,13 @@ import javax.servlet.annotation.*;
  *  @author Aaron Groom
  *  @since  4.0
  *  
- *  Notes: Completed and tested.
+ *  Notes: 
  */
 @WebServlet(
-    name = "employeeAdd", 
-    urlPatterns = {"/employee-add"}
+    name = "HTMLFormsLab", 
+    urlPatterns = {"/html-forms-lab"}
 )
-public class EmployeeAddForward extends HttpServlet {
+public class Lab41Servlet extends HttpServlet {
 
     /**
      *  Handles HTTP GET requests.
@@ -36,10 +37,16 @@ public class EmployeeAddForward extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
         
-        //HttpSession session = request.getSession();
-        //session.removeAttribute("message");
-        String url = "/employee_add.jsp";
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        List<String> formData = new ArrayList<String>();
+        
+        formData.add(request.getParameter("firstname"));
+        formData.add(request.getParameter("searchType"));
+
+        request.setAttribute("formData", formData);
+        
+        String url = "/lab41.jsp";
+        
+        RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }
 }

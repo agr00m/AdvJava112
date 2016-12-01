@@ -5,25 +5,22 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import java112.employee.*;
 
 /**  
- *  Forwards requests to the employee_add.jsp page.
  *  
  *  <p>
  *  Advanced Java (Java 152-112) <br>
- *  Unit 4, Project 4 <br>
- *  Date: 11-22-2016
+ *  Unit 4, Sessions Lab <br>
+ *  Date: 11-28-2016
  *
  *  @author Aaron Groom
- *  @since  4.0
- *  
- *  Notes: Completed and tested.
  */
 @WebServlet(
-    name = "employeeAdd", 
-    urlPatterns = {"/employee-add"}
+    name = "Sessionlab", 
+    urlPatterns = {"/session-lab"}
 )
-public class EmployeeAddForward extends HttpServlet {
+public class Project4SessionLab extends HttpServlet {
 
     /**
      *  Handles HTTP GET requests.
@@ -36,9 +33,18 @@ public class EmployeeAddForward extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
         
-        //HttpSession session = request.getSession();
-        //session.removeAttribute("message");
-        String url = "/employee_add.jsp";
+        HttpSession session = request.getSession();
+        Integer sessionCounter = (Integer) session.getAttribute("project4SessionCounter");
+        
+        if (sessionCounter == null) {
+            sessionCounter = 1;
+        } else {
+            sessionCounter++;
+        }
+        session.setAttribute("project4SessionCounter", sessionCounter);
+        
+        String url = "/project4Session.jsp";
+         
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

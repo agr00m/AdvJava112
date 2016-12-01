@@ -7,23 +7,19 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 /**  
- *  Forwards requests to the employee_add.jsp page.
  *  
  *  <p>
  *  Advanced Java (Java 152-112) <br>
- *  Unit 4, Project 4 <br>
- *  Date: 11-22-2016
+ *  Unit 4, JSTL Lab 1 <br>
+ *  Date: 11-28-2016
  *
  *  @author Aaron Groom
- *  @since  4.0
- *  
- *  Notes: Completed and tested.
  */
 @WebServlet(
-    name = "employeeAdd", 
-    urlPatterns = {"/employee-add"}
+    name = "jstlLab1", 
+    urlPatterns = {"/jstlLab1"}
 )
-public class EmployeeAddForward extends HttpServlet {
+public class JSTLLab1Servlet extends HttpServlet {
 
     /**
      *  Handles HTTP GET requests.
@@ -36,10 +32,17 @@ public class EmployeeAddForward extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
         
-        //HttpSession session = request.getSession();
-        //session.removeAttribute("message");
-        String url = "/employee_add.jsp";
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        List<String> myList = new ArrayList<String>();
+        myList.add("This is the first item");
+        myList.add("Here is the second item");
+        myList.add("And another item");
+        myList.add("The final item");
+        
+        request.setAttribute("myList", myList);
+        
+        String url = "/jsp/jstl-lab2.jsp";
+         
+        RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }
 }

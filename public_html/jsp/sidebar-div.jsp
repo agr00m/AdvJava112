@@ -20,6 +20,8 @@
                 <li><a href="first">Project 2: First112 Servlet</a></li>
                 <li><a href="httpRequest">Project 3: HTTP Request Data</a></li>
                 <li><a href="project3-properties">Project 3: Properties</a></li>
+                <li><a href="employee-search">Employee Search</a></li>
+                <li><a href="employee-add">Employee Add</a></li>
             </ul>
         </li>
         <li>
@@ -43,8 +45,10 @@
         <li>
             <h2>Unit 4</h2>
             <ul>
-                <li><a href="employee-add">Employee Search</a></li>
-                <li><a href="employee-search">Employee Add</a></li>
+                <li><a href="jsp/jstl-lab1.jsp">JSTL Lab 1</a></li>
+                <li><a href="jstlLab1">JSTL Lab 2</a></li>
+                <li><a href="lab41.jsp">HTML Forms</a></li>
+                <li><a href="session-lab">Sessions Lab</a></li>
             </ul>
         </li>
     </ul>

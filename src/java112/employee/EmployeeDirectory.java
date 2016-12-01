@@ -13,6 +13,8 @@ import java.sql.*;
  *
  *  @author Aaron Groom
  *  @since  4.0
+ *  
+ *  Notes: Completed but not tested.
  */
 
 public class EmployeeDirectory {
@@ -32,26 +34,17 @@ public class EmployeeDirectory {
     public EmployeeDirectory(Properties prop) {
         properties = prop;
     }
-        
-    /**
-	 * Creates a connection to the employee database.
-	 * @throws ClassNotFoundException if there's an issue with the database driver
-	 * @throws SQLException if there's an issue connecting to the database
-	 * @throws Exception if there are any general errors
-	 */
-    private Connection connectToDatabase() throws ClassNotFoundException, 
-                                                  SQLException, Exception {
-        Connection con = null;
-        Class.forName(properties.getProperty("database.driver"));
-        con = DriverManager.getConnection(
-                    properties.getProperty("database.url"), 
-                    properties.getProperty("database.username"), 
-                    properties.getProperty("database.password"));
-        return con;
-    }
     
     /**
-	 * Adds an employee to the employee database.
+	 * Adds a new employee to the employee database. The new employee's
+	 * information is included in the parameters.
+	 *    
+	 * @param firstName employee's first name
+	 * @param lastName employee's last name
+	 * @param SSN employee's social security number
+	 * @param department employee's department
+	 * @param roomNumber employee's room number
+	 * @param phoneNumber employee's phone number
 	 */
     public void addEmployee(String firstName, String lastName, String SSN, 
                              String department,String roomNumber, 
@@ -62,7 +55,9 @@ public class EmployeeDirectory {
         
         try {
             con = connectToDatabase();   
-            addEmployee = con.prepareStatement("INSERT INTO employees VALUES (?,?,?,?,?,?)");
+            addEmployee = con.prepareStatement("INSERT INTO employees " + 
+                "(first_name, last_name, ssn, dept, room, phone) " +
+                "VALUES (?,?,?,?,?,?)");
             addEmployee.setString(1, firstName);
             addEmployee.setString(2, lastName);
             addEmployee.setString(3, SSN);
@@ -92,12 +87,22 @@ public class EmployeeDirectory {
         }
     }
     
-    public void findEmployeeById(Search search) {
-        findEmployee(search);
+    /**
+	 * Finds an employee by the employee's ID. 
+	 *    
+	 * @param search search object containing search criteria (type and term)
+	 */
+    public Search findEmployeeById(Search search) {
+        return findEmployee(search);
     }
     
-    public void findEmployeeByLastName(Search search) {
-        findEmployee(search);
+    /**
+	 * Finds an employee by the employee's last name. 
+	 *    
+	 * @param search search object containing search criteria (type and term)
+	 */
+    public Search findEmployeeByLastName(Search search) {
+        return findEmployee(search);
     }
     
     /**
@@ -106,29 +111,23 @@ public class EmployeeDirectory {
      *
      *  @param search search criteria
      */
-    private void findEmployee(Search search) {
-        
+    public Search findEmployee(Search search) {
+
         Connection con = null;
         ResultSet resultSet = null;
-        String queryString =  "SELECT * FROM employees WHERE ? = ?";
         PreparedStatement preparedStatement = null;
-        
+ 
         try {
-            con = connectToDatabase();  // Get connection to database
-            preparedStatement = con.prepareStatement(queryString);  // Prepare SQL statement
-            
-            // Set the first ? of the query string depending on search type. 
-            // int if by id, String if by last name
+            con = connectToDatabase();
             if (search.getSearchType().equals("emp_id")) {
+                preparedStatement = con.prepareStatement("SELECT * FROM employees WHERE emp_id = ?");
                 preparedStatement.setInt(1, Integer.parseInt(search.getSearchTerm()));
             } else {
+                preparedStatement = con.prepareStatement("SELECT * FROM employees WHERE last_name LIKE ?");
                 preparedStatement.setString(1, search.getSearchTerm());
             } 
-            preparedStatement.setString(2, search.getSearchTerm()); 
-            
-            // Query the database and process the results
-            resultSet = preparedStatement.executeQuery(queryString);
-            processResults(resultSet, search);
+            resultSet = preparedStatement.executeQuery();
+            search = processResults(resultSet, search);
         } catch (ClassNotFoundException classNotFound) {
             System.err.println("Cannot find database driver ");
             classNotFound.printStackTrace();
@@ -153,33 +152,62 @@ public class EmployeeDirectory {
                 exception.printStackTrace();
             }
         }
+        return search;
     }
     
     /**
-     *  Processes a set of search results for a search.
+     *  Processes a set of search results for a search. If the search results
+     *  in any records, it adds the employee to the search and sets the found
+     *  flag to true. If no records are found, it sets the found flag to false.
      *
      *  @param resultSet query results to process
      *  @param search search object to process query for
+     *  @throws SQLException if there's an error in the ResultSet
      */
-    private void processResults(ResultSet resultSet, Search search) throws SQLException {
+    private Search processResults(ResultSet resultSet, Search search) throws SQLException {
         
         Employee employee = null;
         
         if (resultSet.isBeforeFirst()) {
-            search.setFound(true);
             while (resultSet.next()) {
                 employee = new Employee();
                 employee.setEmployeeID(Integer.toString(resultSet.getInt("emp_id")));
                 employee.setFirstName(resultSet.getString("first_name"));
                 employee.setLastName(resultSet.getString("last_name"));
                 employee.setSSN(resultSet.getString("ssn"));
-                employee.setDepartment(resultSet.getString("department"));
-                employee.setRoomNumber(resultSet.getString("room_number"));
-                employee.setPhoneNumber(resultSet.getString("phone_number"));
+                employee.setDepartment(resultSet.getString("dept"));
+                employee.setRoomNumber(resultSet.getString("room"));
+                employee.setPhoneNumber(resultSet.getString("phone"));
+                search.addFoundEmployee(employee);
             }
-            search.addFoundEmployee(employee);
+            search.setFound(true);
         } else {
             search.setFound(false);
         }
+        return search;
+    }
+            
+    /**
+	 * Creates a connection to the employee database.
+	 *
+	 * @throws ClassNotFoundException if there's an issue with the database driver
+	 * @throws SQLException if there's an issue connecting to the database
+	 * @throws Exception if there are any general errors
+	 */
+    private Connection connectToDatabase() throws ClassNotFoundException, 
+                                                  SQLException, Exception {
+        Connection con = null;
+        
+        Class.forName("com.mysql.jdbc.Driver");
+        con = DriverManager.getConnection("jdbc:mysql://localhost/student", "student", "student");
+        
+        //Class.forName(properties.getProperty("database.driver"));
+        /*
+        con = DriverManager.getConnection(
+                    properties.getProperty("database.url"),
+                    properties.getProperty("database.username"), 
+                    properties.getProperty("database.password"));
+        */
+        return con;
     }
 }

@@ -18,6 +18,8 @@ import java112.employee.*;
  *
  *  @author Aaron Groom
  *  @since  4.0
+ *
+ *  Notes: Complete but not tested
  */
 @WebServlet(
     name = "applicationStartup", 
@@ -28,6 +30,12 @@ public class ApplicationStartup extends HttpServlet {
     
     Properties properties = null;
     
+    /**
+     *  Initializes the application. It first loads the application's properties
+     *  file. It then creates a new instance of EmployeeDirectory passing it
+     *  the Properties Object, and places the EmployeeDirectory and Properties
+     *  objects into the ServletContext.
+     */
     public void init() {
         loadProperties("/project4.properties");
         ServletContext context = getServletContext();

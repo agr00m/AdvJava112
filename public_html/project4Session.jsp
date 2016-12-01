@@ -28,10 +28,8 @@ Released   : 20110708
 		
             <!-- begin #content -->
             <div id="content">
-                
-                <h2>Add Employee</h2>    
-            
-            
+                <h3>Sessions Lab</h3>
+                <p>Session Count: ${project4SessionCounter}</p>
             </div>
             <!-- end #content -->
             
