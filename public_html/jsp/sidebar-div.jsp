@@ -1,18 +1,5 @@
 <div id="sidebar">
-    <div id="search">
-        <h2>Search</h2>
-        <form method="get" action="">
-            <fieldset>
-                <input type="text" name="s" id="search-text" size="15" value="enter keywords here..." />
-                <input type="submit" id="search-submit" value="GO" />
-            </fieldset>
-        </form>
-    </div>
     <ul>
-        <li>
-            <h2>About</h2>
-            <p>Projects, labs and links for Advanced Java Programming (Java112).</p>
-        </li>
         <li>
             <h2>Projects</h2>
             <ul>
@@ -22,6 +9,19 @@
                 <li><a href="project3-properties">Project 3: Properties</a></li>
                 <li><a href="employee-search">Employee Search</a></li>
                 <li><a href="employee-add">Employee Add</a></li>
+            </ul>
+        </li>
+        <li>
+            <h2>Fileizer</h2>
+            <ul>
+                <li><a href="analyzer-upload">Upload File</a></li>
+                <li><a href="analyzer-results?report=summary">Summary Report</a></li>
+                <li><a href="analyzer-results?report=unique">Unique Tokens</a></li>
+                <li><a href="analyzer-results?report=bigwords">Big Words</a></li>
+                <li><a href="analyzer-results?report=token.count">Token Count</a></li>
+                <li><a href="analyzer-results?report=token.size">Token Size</a></li>
+                <li><a href="analyzer-results?report=lexical.density">Lexical Density</a></li>
+                <li><a href="analyzer-results?report=keyword">Keyword Locations</a></li>
             </ul>
         </li>
         <li>

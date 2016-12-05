@@ -143,14 +143,14 @@
       destdir="${web_classes}"
       extdirs="${lib}"
       verbose="false"
-      excludes="*.jsp,*.html,*.xml, java112/analyzer/** java112/labs1/**, java112/labs2/**, java112/labs3/**, java112/tests/**"
+      excludes="*.jsp,*.html,*.xml, java112/labs1/**, java112/labs2/**, java112/labs3/**, java112/tests/**"
       deprecation="on"
       debug="on"
       includeAntRuntime="false"
     />
   </target>
 
-  <target name="build_web" depends="compile_web">
+  <target name="build_web" depends="compile_web, build_analyzer">
 
     <copy todir="${web_classes}">
       <fileset dir="${config}"/>

@@ -8,7 +8,6 @@ import javax.servlet.annotation.*;
 
 /**  
  *  Forwards requests to the employee_search.jsp page.
- *  
  *  <p>
  *  Advanced Java (Java 152-112) <br>
  *  Unit 4, Project 4 <br>
@@ -16,8 +15,6 @@ import javax.servlet.annotation.*;
  *
  *  @author Aaron Groom
  *  @since  4.0
- *
- *  Notes: Completed and tested.
  */
 @WebServlet(
     name = "employeeSearch", 

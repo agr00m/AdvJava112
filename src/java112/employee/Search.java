@@ -15,7 +15,6 @@ import java.util.*;
  *  @author Aaron Groom
  *  @since  4.0
  */
-
 public class Search extends java.lang.Object {
     
     private String searchType = "";
@@ -23,7 +22,6 @@ public class Search extends java.lang.Object {
     private List<Employee> searchResults = null;
     private Boolean found = false;
 
-   
     /**
 	 * Constructor.
 	 */

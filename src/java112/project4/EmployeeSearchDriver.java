@@ -5,8 +5,8 @@ import java.util.*;
 import java112.employee.*;
 
 /**  
- *  Project 4 test drive class. Tests the functionality of the Employee 
- *  package.
+ *  Project 4 test drive class. Tests the add and search functionality of the 
+ *  Employee package.
  *  <p>
  *  Advanced Java (Java 152-112) <br>
  *  Unit 4, Project 4 <br>
@@ -14,7 +14,6 @@ import java112.employee.*;
  *
  *  @author Aaron Groom
  */
-
 public class EmployeeSearchDriver {
     
     Properties properties = null;
@@ -28,6 +27,9 @@ public class EmployeeSearchDriver {
         esd.run();       
     }
     
+    /**
+     *  Run method for the class.
+     */
     private void run() {
         loadProperties("/project4.properties");
         ed = new EmployeeDirectory(properties);
@@ -41,6 +43,11 @@ public class EmployeeSearchDriver {
         }
     }
     
+    /**
+     *  Adds an employee to the employee database by propting the user for
+     *  the new employee's information. It then performs a search for the 
+     *  added employee to verify it has been added.
+     */
     private void add() {
         
         System.out.println("\nNEW EMPLOYEE ENTRY");
@@ -59,7 +66,10 @@ public class EmployeeSearchDriver {
         search = ed.findEmployeeByLastName(search);
         printResults(search);
     }
-        
+    
+    /**
+     *  Searches for an employee based on employee ID or last name. 
+     */
     private void search() {
         
         EmployeeDirectory ed = new EmployeeDirectory(properties);
@@ -83,6 +93,11 @@ public class EmployeeSearchDriver {
         printResults(search);
     }
     
+    /**
+     * Prints search results to the console.
+     *
+     * @param search search object containing the search results
+     */
     private void printResults(Search search) {
         
         List<Employee> employees = search.getSearchResults();
@@ -98,6 +113,11 @@ public class EmployeeSearchDriver {
         }
     }
     
+    /**
+     *  Prompts the user for input.
+     *
+     *  @param s message to user about what to enter
+     */
     private String getValue(String s) {
         String userInput = "";
         while (userInput.length() == 0) {
@@ -111,7 +131,13 @@ public class EmployeeSearchDriver {
         }
         return userInput;
     }
-  
+    
+    /**
+     *  Displays the user propmt message and retrieves the entered data from
+     *  from the console.
+     *
+     *  @param propmt message to user about what to enter
+     */
     private String getUserInput(String prompt) {
     
         String  inputLine  = null;
@@ -130,6 +156,11 @@ public class EmployeeSearchDriver {
         return inputLine;
     }
     
+    /**
+     *  Loads the properties file into the Properties object?
+     *
+     *  @param propertiesFilePath path to properties file
+     */
     private void loadProperties(String propertiesFilePath)  {
         properties = new Properties();
         try {

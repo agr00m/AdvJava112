@@ -1,0 +1,27 @@
+Analyzer:
+$ ant compile_analyzer      Compile analyzer project
+$ ant build_analyzer		Compile & build analyzer project
+$ ant run_tests_analyzer    Runs the analyzer tests
+$ ./runAnalyzer.sh ***      Runs the analyzer project
+
+Labs:
+$ ant compile_labs		    Compile all labs
+$ ant build_labs            Compile & build all labs
+$ ant run_tests_lab#        Runs the specified lab tests
+$ ./runLab***.sh            Runs the specificed lab
+
+Demos:
+$ ant compile_demos         Compile everything in the demo directory
+$ ant build_demos           Compile and build demos
+$ ant compile_analyzer		Compile analyzer project
+
+MySQL: 
+$ mysql -ustudent -p        Log into MySQL as student
+$ show databases;           List the databases
+$ use 'databasename';       Switches to the database
+$ show tables;              Shows the tables in currently selected database
+$ SELECT * FROM 'table';    Displays all records in the table
+REMINDER to include ; at the end of SQL commands/statements
+
+Misc commands:
+$ chmod +x "filename"       Add execute rights

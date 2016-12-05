@@ -3,7 +3,7 @@ package java112.employee;
 import java.io.*;
 
 /**  
- *  The Employee class contains all the information about an employee.
+ *  Contains all information about an employee.
  *  <p>
  *  Advanced Java (Java 152-112) <br>
  *  Unit 4, Project 4 <br>
@@ -33,11 +33,9 @@ public class Employee {
     /**
 	 * Converts input to String.
 	 */
-
 	public String toString() {
 		return "";
 	}
-
 	
 	/**
 	 * Returns the value of employeeID.
@@ -65,7 +63,6 @@ public class Employee {
 	 * Sets the value of firstName.
 	 * @param firstName The value to assign firstName.
 	 */
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}

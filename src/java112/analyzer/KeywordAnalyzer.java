@@ -92,14 +92,18 @@ public class KeywordAnalyzer implements Analyzer {
         ) {
             
             keywordMap.forEach( (k,v) -> {
+                if (v.size() > 0) {
                     outputWriter.print(k + " =\n[");
                     for (int i = 1; i < v.size(); i++) {
                         outputWriter.print(v.get(i-1) + ", ");
                         if (i % 9 == 0) {
                             outputWriter.print("\n");
                         }
-                     }
-                     outputWriter.print(v.get(v.size()-1) + "]\n\n");
+                    }
+                    outputWriter.print(v.get(v.size()-1) + "]\n\n");
+                } else {
+                    outputWriter.print(k + " =\nkeyword not found\n\n");
+                }
             });
 
             System.out.println(properties.getProperty("output.file.keyword") + 

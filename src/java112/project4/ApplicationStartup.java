@@ -9,7 +9,7 @@ import java112.employee.*;
 
 /**  
  *  Startup servlet for project 4. Initializes the project's property file 
- *  and creates a new Employee directory, then attaches them to the 
+ *  and creates a new EmployeeDirectory, then attaches them to the 
  *  application's ServletContext.
  *  <p>
  *  Advanced Java (Java 152-112) <br>
@@ -18,8 +18,6 @@ import java112.employee.*;
  *
  *  @author Aaron Groom
  *  @since  4.0
- *
- *  Notes: Complete but not tested
  */
 @WebServlet(
     name = "applicationStartup", 
@@ -42,6 +40,9 @@ public class ApplicationStartup extends HttpServlet {
         EmployeeDirectory ed = new EmployeeDirectory(properties);
         context.setAttribute("project4properties", properties);
         context.setAttribute("employeeDirectory", ed);
+        
+        loadProperties("/analyzer.properties");
+        context.setAttribute("analyzerProperties", properties);
     }
 
     /**

@@ -1,4 +1,12 @@
 <div class="post">
+    <h2 class="title"><a href="#">Unit 4</a></h2>
+    <p class="meta">Posted: December 05, 2016
+    <div class="entry">
+        <p>Unit 4 labs and project 4 completed. Analyzer web interface also implemented.</p>
+    </div>
+</div>
+
+<div class="post">
     <h2 class="title"><a href="#">Unit 3</a></h2>
     <p class="meta">Posted: November 22, 2016
     <div class="entry">

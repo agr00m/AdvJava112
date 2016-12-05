@@ -8,8 +8,11 @@ import javax.servlet.annotation.*;
 import java112.employee.*;
 
 /**  
- *  
- *  
+ *  Performs employee searches. Retrieves the EmployeeDirectroy object from the
+ *  ServletContext and the information entered in the Employee Search web form.
+ *  It then calls the appropriate EmployeeDirectory search method, and places
+ *  the search results into the session. Finally it forards the results to
+ *  the search results web page.
  *  <p>
  *  Advanced Java (Java 152-112) <br>
  *  Unit 4, Project 4 <br>
@@ -17,8 +20,6 @@ import java112.employee.*;
  *
  *  @author Aaron Groom
  *  @since  4.0
- *  
- *  Notes: 
  */
 @WebServlet(
     name = "searchResults", 
@@ -57,7 +58,6 @@ public class EmployeeSearchResults extends HttpServlet {
         session.setAttribute("searchResults", search);
                 
         String url = "/employee_search_results.jsp";
-        
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

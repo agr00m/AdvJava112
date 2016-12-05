@@ -5,7 +5,8 @@ import java.util.*;
 import java.sql.*;
 
 /**  
- *  
+ *  Responsible for searching for and adding employees, along with creating
+ *  and managing the required database connections. 
  *  <p>
  *  Advanced Java (Java 152-112) <br>
  *  Unit 4, Project 4 <br>
@@ -13,10 +14,7 @@ import java.sql.*;
  *
  *  @author Aaron Groom
  *  @since  4.0
- *  
- *  Notes: Completed but not tested.
  */
-
 public class EmployeeDirectory {
     
     private Properties properties = null;
@@ -37,7 +35,8 @@ public class EmployeeDirectory {
     
     /**
 	 * Adds a new employee to the employee database. The new employee's
-	 * information is included in the parameters.
+	 * information is set in the method's parameters. It first connects to
+	 * the database, then inserts a new employee using a prepared statement.
 	 *    
 	 * @param firstName employee's first name
 	 * @param lastName employee's last name
@@ -88,21 +87,25 @@ public class EmployeeDirectory {
     }
     
     /**
-	 * Finds an employee by the employee's ID. 
+	 *  Searches for an employee by employee ID. 
 	 *    
-	 * @param search search object containing search criteria (type and term)
+	 *  @param search search object containing search criteria (type and term)
+	 *  @return search object contaning results of search
 	 */
     public Search findEmployeeById(Search search) {
-        return findEmployee(search);
+        String sqlStatement = "SELECT * FROM employees WHERE emp_id = ?";
+        return findEmployee(search, sqlStatement);
     }
     
     /**
-	 * Finds an employee by the employee's last name. 
+	 *  Searches for an employee by employee last name. 
 	 *    
-	 * @param search search object containing search criteria (type and term)
+	 *  @param search search object containing search criteria (type and term)
+	 *  @return search object contaning results of search
 	 */
     public Search findEmployeeByLastName(Search search) {
-        return findEmployee(search);
+        String sqlStatement = "SELECT * FROM employees WHERE last_name LIKE ?";
+        return findEmployee(search, sqlStatement);
     }
     
     /**
@@ -110,8 +113,9 @@ public class EmployeeDirectory {
      *  specified in the search object.
      *
      *  @param search search criteria
+     *  @return search object contaning results of search
      */
-    public Search findEmployee(Search search) {
+    public Search findEmployee(Search search, String sqlStatement) {
 
         Connection con = null;
         ResultSet resultSet = null;
@@ -119,11 +123,10 @@ public class EmployeeDirectory {
  
         try {
             con = connectToDatabase();
+            preparedStatement = con.prepareStatement(sqlStatement);
             if (search.getSearchType().equals("emp_id")) {
-                preparedStatement = con.prepareStatement("SELECT * FROM employees WHERE emp_id = ?");
                 preparedStatement.setInt(1, Integer.parseInt(search.getSearchTerm()));
             } else {
-                preparedStatement = con.prepareStatement("SELECT * FROM employees WHERE last_name LIKE ?");
                 preparedStatement.setString(1, search.getSearchTerm());
             } 
             resultSet = preparedStatement.executeQuery();
@@ -163,6 +166,7 @@ public class EmployeeDirectory {
      *  @param resultSet query results to process
      *  @param search search object to process query for
      *  @throws SQLException if there's an error in the ResultSet
+     *  @return search object contaning results of search
      */
     private Search processResults(ResultSet resultSet, Search search) throws SQLException {
         
@@ -188,26 +192,21 @@ public class EmployeeDirectory {
     }
             
     /**
-	 * Creates a connection to the employee database.
+	 *  Creates a connection to the employee database.
 	 *
-	 * @throws ClassNotFoundException if there's an issue with the database driver
-	 * @throws SQLException if there's an issue connecting to the database
-	 * @throws Exception if there are any general errors
+	 *  @throws ClassNotFoundException if there's an issue with the database driver
+	 *  @throws SQLException if there's an issue connecting to the database
+	 *  @throws Exception if there are any general errors
+	 *  @return connection to database
 	 */
     private Connection connectToDatabase() throws ClassNotFoundException, 
                                                   SQLException, Exception {
-        Connection con = null;
-        
-        Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost/student", "student", "student");
-        
-        //Class.forName(properties.getProperty("database.driver"));
-        /*
-        con = DriverManager.getConnection(
+        Class.forName(properties.getProperty("database.driver"));
+        Connection con = DriverManager.getConnection(
                     properties.getProperty("database.url"),
                     properties.getProperty("database.username"), 
                     properties.getProperty("database.password"));
-        */
+        
         return con;
     }
 }

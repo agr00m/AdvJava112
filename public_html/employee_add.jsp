@@ -30,28 +30,26 @@ Released   : 20110708
                     <form method="POST" action="add-employee">
                         <fieldset>
                           <legend>New Employee Information</legend>
-                          First Name: 
+                          First Name (25 char max):
                           <input type="text" name="first_name"> <br>
-                          Last Name:
+                          Last Name (30 char max):
                           <input type="text" name="last_name"> <br>
-                          SSN: 
+                          SSN (###-##-####): 
                           <input type="text" name="ssn"> <br>
-                          Department:
+                          Department (10 char max):
                           <input type="text" name="dept"> <br>
-                          Room #: 
+                          Room # (10 char max):: 
                           <input type="text" name="room"> <br>
-                          Phone #: 
+                          Phone # (###-####): 
                           <input type="text" name="phone"> <br>
                           <br>
-                          <input type="submit" value="Submit">
+                          <input type="submit" value="Submit" id="submit">
                         </fieldset>
                     </form>
                 </div>
                 <br>
                 <h3>${message}</h3>
-                <%
-                    session.removeAttribute("message");
-                %>
+                <% session.removeAttribute("message"); %>
                 
             </div>
             
