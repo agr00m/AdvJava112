@@ -32,7 +32,7 @@ Released   : 20110708
                 
                 <h2>Filelyzer - Upload File to Analyze</h2><br>
                 <fieldset>
-                    <legend>Upload File</legend>
+                    <legend>File Upload</legend>
                     <form method="POST" action="upload" enctype="multipart/form-data">
                         File:
                         <input type="file" name="file" id="file" /> <br><br>
